@@ -1,9 +1,8 @@
 tasks:
   - init: |
       npm ci
-      npm run build
     command: |
-      export HRM_HOST=`gp url 5173`
+      export HMR_HOST=`gp url 5173`
       npm run dev
 
 ports:
