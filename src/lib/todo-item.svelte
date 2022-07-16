@@ -1,11 +1,16 @@
 <script lang="ts">
 	export let todo: Todo;
+	const { done } = todo;
 </script>
 
-<div class={todo.done ? 'todo done' : 'todo'}>
+<div class="todo" class:done>
 	<form action="/todos/{todo.id}?_method=PATCH" method="post">
-		<input type="hidden" name="done" value={!todo.done} />
-		<button class="toggle" type="submit" aria-label="Mark done/not done" />
+		<input type="hidden" name="done" value={!done} />
+		<button
+			class="toggle"
+			type="submit"
+			aria-label="Mark todo as {done ? 'not done' : 'done'}"
+		/>
 	</form>
 
 	<form action="/todos/{todo.id}?_method=PATCH" method="post" class="text">
