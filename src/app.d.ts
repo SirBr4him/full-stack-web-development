@@ -9,3 +9,9 @@ declare namespace App {
 	// interface Session {}
 	// interface Stuff {}
 }
+
+type Todo = {
+	createdAt: Date;
+	text: string;
+	done: boolean;
+};

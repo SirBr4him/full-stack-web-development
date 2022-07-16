@@ -1,14 +1,16 @@
-<script>
-	export let isDone = false;
+<script lang="ts">
+	import { bind } from 'svelte/internal';
+
+	export let todo: Todo;
 </script>
 
-<div class={isDone ? 'todo done' : 'todo'}>
+<div class={todo.done ? 'todo done' : 'todo'}>
 	<form action="" method="">
 		<input type="hidden" name="done" value="" />
 		<button class="toggle" type="submit" aria-label="Mark done/not done" />
 	</form>
 	<form action="" method="" class="text">
-		<input type="text" name="" value="" />
+		<input type="text" name="" value={todo.text} />
 		<button type="submit" aria-label="Save todo" class="save" />
 	</form>
 
@@ -94,5 +96,9 @@
 
 	.done .toggle {
 		background-image: url("data:image/svg+xml,%3Csvg width='22' height='16' viewBox='0 0 22 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.5 1.5L7.4375 14.5L1.5 8.5909' stroke='%23676778' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	}
+
+	.done .text {
+		text-decoration: line-through;
 	}
 </style>
