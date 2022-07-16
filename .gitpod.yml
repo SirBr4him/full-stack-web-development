@@ -1,3 +1,5 @@
+---
+# For more details, please see https://www.gitpod.io/docs/references/gitpod-yml
 image: gitpod/workspace-postgres
 
 tasks:
@@ -6,12 +8,19 @@ tasks:
     command: |
       export HMR_HOST=`gp url 5173`
       npm run dev
+    env:
+      DATABASE_URL: postgres://gitpod@localhost/todos
+  - command: npm run prisma
+    env:
+      DATABASE_URL: postgres://gitpod@localhost/todos
 
 ports:
   - port: 5173
     onOpen: open-browser
   - port: 5432
     onOpen: ignore
+  - port: 5555
+    onOpen: open-browser
 
 gitConfig:
   user.email: 30289709+SirBr4him@users.noreply.github.com
@@ -19,6 +28,7 @@ gitConfig:
 vscode:
   extensions:
     - svelte.svelte-vscode
+    - Prisma.prisma
     - dbaeumer.vscode-eslint
     - esbenp.prettier-vscode
     - eamodio.gitlens
