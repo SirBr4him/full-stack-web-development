@@ -2,7 +2,11 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { api } from './_api';
 
 export const DELETE: RequestHandler = ({ request, params }) => {
-	return api({ method: request.method, id: params.id });
+	return api({
+		method: request.method,
+		accept: request.headers.get('accept'),
+		id: params.id
+	});
 };
 
 export const PATCH: RequestHandler = async ({ request, params }) => {
@@ -17,5 +21,10 @@ export const PATCH: RequestHandler = async ({ request, params }) => {
 		todo = { ...todo, done: data.get('done') === 'true' };
 	}
 
-	return api({ method: request.method, todo, id: params.id });
+	return api({
+		method: request.method,
+		accept: request.headers.get('accept'),
+		todo,
+		id: params.id
+	});
 };

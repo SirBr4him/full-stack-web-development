@@ -19,6 +19,7 @@ type Todo = {
 
 type ApiParams = {
 	method: string;
+	accept: string | null;
 	todo?: Partial<Todo>;
 	id?: string;
 };
