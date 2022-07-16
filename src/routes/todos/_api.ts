@@ -1,31 +1,29 @@
-const todos = new Map();
+import PrismaClient from '$lib/prisma';
 
-export const api = ({ method, accept, todo, id }: ApiParams) => {
+const prisma = new PrismaClient();
+
+export const api = async ({ method, accept, todo, id }: ApiParams) => {
 	let body: Todo[] | Todo | undefined;
 	let status = 500;
 
 	switch (method.toUpperCase()) {
 		case 'GET': {
-			body = Array.from(todos.values()).reverse();
+			body = await prisma.todo.findMany();
 			status = 200;
 			break;
 		}
 		case 'POST': {
-			todos.set(todo?.id, todo);
+			body = await prisma.todo.create({ data: { ...(todo as Todo) } });
 			status = 201;
-			body = todo as Todo;
 			break;
 		}
 		case 'DELETE': {
-			body = todos.get(id);
-			todos.delete(id);
+			body = await prisma.todo.delete({ where: { id } });
 			status = 200;
 			break;
 		}
 		case 'PATCH': {
-			const uTodo = { ...todos.get(id), ...todo };
-			todos.set(id, uTodo);
-			body = todos.get(id);
+			body = await prisma.todo.update({ where: { id }, data: { ...todo } });
 			status = 200;
 			break;
 		}

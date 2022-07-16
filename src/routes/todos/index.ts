@@ -11,7 +11,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		method: request.method,
 		accept: request.headers.get('accept'),
 		todo: {
-			id: `${Date.now()}`,
 			done: false,
 			text: data.get('text') as string,
 			createdAt: new Date()
