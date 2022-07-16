@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { bind } from 'svelte/internal';
-
 	export let todo: Todo;
 </script>
 
 <div class={todo.done ? 'todo done' : 'todo'}>
-	<form action="" method="">
-		<input type="hidden" name="done" value="" />
+	<form action="/todos/{todo.id}?_method=PATCH" method="post">
+		<input type="hidden" name="done" value={!todo.done} />
 		<button class="toggle" type="submit" aria-label="Mark done/not done" />
 	</form>
-	<form action="" method="" class="text">
+
+	<form action="/todos/{todo.id}?_method=PATCH" method="post" class="text">
 		<input type="text" name="" value={todo.text} />
 		<button type="submit" aria-label="Save todo" class="save" />
 	</form>
 
-	<form action="" method="">
+	<form action="/todos/{todo.id}?_method=DELETE" method="post">
 		<button aria-label="Delete Todo" class="delete" />
 	</form>
 </div>

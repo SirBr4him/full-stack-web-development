@@ -11,7 +11,14 @@ declare namespace App {
 }
 
 type Todo = {
+	id?: string;
 	createdAt: Date;
 	text: string;
 	done: boolean;
+};
+
+type ApiParams = {
+	method: string;
+	todo?: Partial<Todo>;
+	id?: string;
 };
