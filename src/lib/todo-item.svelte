@@ -9,7 +9,7 @@
 	</form>
 
 	<form action="/todos/{todo.id}?_method=PATCH" method="post" class="text">
-		<input type="text" name="" value={todo.text} />
+		<input type="text" name="text" value={todo.text} />
 		<button type="submit" aria-label="Save todo" class="save" />
 	</form>
 
