@@ -1,3 +1,5 @@
+image: gitpod/workspace-postgres
+
 tasks:
   - init: |
       npm ci
@@ -8,6 +10,8 @@ tasks:
 ports:
   - port: 5173
     onOpen: open-browser
+  - port: 5432
+    onOpen: ignore
 
 gitConfig:
   user.email: 30289709+SirBr4him@users.noreply.github.com
