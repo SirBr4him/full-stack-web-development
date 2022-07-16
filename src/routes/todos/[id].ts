@@ -14,7 +14,7 @@ export const PATCH: RequestHandler = async ({ request, params }) => {
 	}
 
 	if (data.has('done')) {
-		todo = { ...todo, done: !!data.get('done') };
+		todo = { ...todo, done: data.get('done') === 'true' };
 	}
 
 	return api({ method: request.method, todo, id: params.id });
