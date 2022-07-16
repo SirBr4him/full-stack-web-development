@@ -16,8 +16,22 @@
 
 <script lang="ts">
 	import TodoItem from '$lib/todo-item.svelte';
+	import { enhance } from '$lib/actions/form';
 
 	export let todos: Todo[];
+
+	const onAdded = (resp: Todo, form?: HTMLFormElement) => {
+		todos = [resp, ...todos];
+		form?.reset();
+	};
+
+	const onEdited = (resp: Todo) => {
+		todos = todos.map((t) => (t.id === resp.id ? resp : t));
+	};
+
+	const onDeleted = (resp: Todo) => {
+		todos = todos.filter((t) => t.id !== resp.id);
+	};
 
 	const title = 'Todos';
 </script>
@@ -28,8 +42,12 @@
 
 <div class="todos">
 	<h1>{title}</h1>
-
-	<form action="/todos" method="post" class="new">
+	<form
+		action="/todos"
+		method="post"
+		class="new"
+		use:enhance={{ result: onAdded }}
+	>
 		<input
 			type="text"
 			name="text"
@@ -39,7 +57,7 @@
 	</form>
 
 	{#each todos as todo}
-		<TodoItem {todo} />
+		<TodoItem {todo} {onDeleted} {onEdited} />
 	{/each}
 </div>
 

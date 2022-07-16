@@ -1,24 +1,39 @@
 <script lang="ts">
+	import { enhance } from '$lib/actions/form';
 	export let todo: Todo;
-	const { done } = todo;
+	export let onDeleted: (resp: Todo) => void;
+	export let onEdited: (resp: Todo) => void;
 </script>
 
-<div class="todo" class:done>
-	<form action="/todos/{todo.id}?_method=PATCH" method="post">
-		<input type="hidden" name="done" value={!done} />
+<div class="todo" class:done={todo.done}>
+	<form
+		action="/todos/{todo.id}?_method=PATCH"
+		method="post"
+		use:enhance={{ result: onEdited }}
+	>
+		<input type="hidden" name="done" value={!todo.done} />
 		<button
 			class="toggle"
 			type="submit"
-			aria-label="Mark todo as {done ? 'not done' : 'done'}"
+			aria-label="Mark todo as {todo.done ? 'not done' : 'done'}"
 		/>
 	</form>
 
-	<form action="/todos/{todo.id}?_method=PATCH" method="post" class="text">
+	<form
+		action="/todos/{todo.id}?_method=PATCH"
+		method="post"
+		class="text"
+		use:enhance={{ result: onEdited }}
+	>
 		<input type="text" name="text" value={todo.text} />
 		<button type="submit" aria-label="Save todo" class="save" />
 	</form>
 
-	<form action="/todos/{todo.id}?_method=DELETE" method="post">
+	<form
+		action="/todos/{todo.id}?_method=DELETE"
+		method="post"
+		use:enhance={{ result: onDeleted }}
+	>
 		<button aria-label="Delete Todo" class="delete" />
 	</form>
 </div>

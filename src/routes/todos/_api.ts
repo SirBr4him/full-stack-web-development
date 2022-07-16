@@ -1,6 +1,6 @@
 const todos = new Map();
 
-export const api = ({ method, todo, id }: ApiParams) => {
+export const api = ({ method, accept, todo, id }: ApiParams) => {
 	let body: Todo[] | Todo | undefined;
 	let status = 500;
 
@@ -34,8 +34,8 @@ export const api = ({ method, todo, id }: ApiParams) => {
 		}
 	}
 
-	if (method.toUpperCase() !== 'GET') {
-		return { status: 301, headers: { location: '/' } };
+	if (method.toUpperCase() !== 'GET' && accept !== 'application/json') {
+		return { status: 303, headers: { location: '/' } };
 	}
 
 	return { status, body };
